@@ -4,24 +4,32 @@ import java.net.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-class StoreCookie extends HttpServlet {
+class RetrieveCookie extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
 
-        Cookie nameUser = new Cookie("username", "Rahul Gedela");
-        Cookie emailUser = new Cookie("email", "rahulgedela.shopping@gmail.com");
+        Cookie[] cookies = request.getCookies();
 
-        nameUser.setMaxAge(7 * 24 * 60 * 60);
-        emailUser.setMaxAge(7 * 24 * 60 * 60);
+        String username = "";
+        String email = "";
 
-        response.addCookie(nameUser);
-        response.addCookie(emailUser);
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("username")) {
+                    username = cookie.getValue();
+                } else if (cookie.getName().equals("email")) {
+                    email = cookie.getValue();
+                }
+            }
+        }
 
         PrintWriter out = response.getWriter();
         out.println("<html>");
         out.println("<body>");
-        out.println("<h2>Cookies have been set successfully</h2>");
+        out.println("<h2>Retrieving from cookies</h2>");
+        out.println("<h3>Username:" + username + "</h3>");
+        out.println("<h3>Email:" + email + "</h3>");
         out.println("</body>");
         out.println("</html>");
     }
