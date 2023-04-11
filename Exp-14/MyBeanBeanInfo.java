@@ -5,7 +5,7 @@ import java.beans.*;
 public class MyBeanBeanInfo extends SimpleBeanInfo {
 	public PropertyDescriptor[] getPropertyDescriptors() {
 		try {
-			PropertyDescriptor nameDescriptor=new Propertydescriptor("name", MyBean.class);
+			PropertyDescriptor nameDescriptor=new PropertyDescriptor("name", MyBean.class);
 			nameDescriptor.setDisplayName("name");
 			return new PropertyDescriptor[] {nameDescriptor};
 		}
